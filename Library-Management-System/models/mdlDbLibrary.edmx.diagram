@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c10202b27e044949a48ddeb36196eb42" Name="Diagram1">
+        <EntityTypeShape EntityType="dbLibraryModel.tblBook" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbLibraryModel.tblBorrowed" Width="2.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbLibraryModel.tblCategory" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbLibraryModel.tblSetting" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbLibraryModel.tblUser" Width="2" PointX="3" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="dbLibraryModel.FK_tblBooks_tblCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="dbLibraryModel.FK_tblBorrowed_tblBooks" ManuallyRouted="false" />
+        <AssociationConnector Association="dbLibraryModel.FK_tblBorrowed_tblUsers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbLibraryModel.viewUpgradedBook" Width="2" PointX="8.25" PointY="1.125" />
+        <EntityTypeShape EntityType="dbLibraryModel.viewUpgradedUser" Width="1.875" PointX="11.625" PointY="1.125" />
+        <EntityTypeShape EntityType="dbLibraryModel.viewUpgradedBorrowed" Width="2.125" PointX="9.5" PointY="4.5" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

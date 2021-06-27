@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBooks">
+          <Key>
+            <PropertyRef Name="bkID" />
+          </Key>
+          <Property Name="bkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bkName" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="bkAuthor" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="bkPublishedDate" Type="date" Nullable="false" />
+          <Property Name="bkPages" Type="int" Nullable="false" />
+          <Property Name="bkAmount" Type="tinyint" Nullable="false" />
+          <Property Name="bkSummary" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="bkCategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblBorrowed">
+          <Key>
+            <PropertyRef Name="brwID" />
+          </Key>
+          <Property Name="brwID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="brwBkID" Type="int" />
+          <Property Name="brwUsrID" Type="int" />
+          <Property Name="brwPurchaseDate" Type="date" Nullable="false" />
+          <Property Name="brwRedemptionDate" Type="date" Nullable="false" />
+          <Property Name="brwSitutation" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblCategories">
+          <Key>
+            <PropertyRef Name="ctgID" />
+          </Key>
+          <Property Name="ctgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ctgName" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="ctgCreatedDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSettings">
+          <Key>
+            <PropertyRef Name="stgID" />
+          </Key>
+          <Property Name="stgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stgProperty" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="stgValue" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="usrID" />
+          </Key>
+          <Property Name="usrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usrName" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="usrSurname" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="usrSchoolNumber" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="usrMail" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="usrPassword" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="usrAuthorityLevel" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="usrAccountActivation" Type="bit" Nullable="false" />
+          <Property Name="usrLecturerActivation" Type="bit" />
+          <Property Name="usrAmontBooks" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbLibrary.dbo.viewUpgradedBooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewUpgradedBooks">
+          <Key>
+            <PropertyRef Name="bkID" />
+            
+            
+            
+            
+          </Key>
+          <Property Name="bkID" Type="int" Nullable="false" />
+          <Property Name="bkName" Type="varchar(max)" />
+          <Property Name="bkAuthor" Type="varchar(max)" />
+          <Property Name="bkPages" Type="int" Nullable="false" />
+          <Property Name="bkPublishedDate" Type="date" Nullable="false" />
+          <Property Name="ctgName" Type="varchar(max)" />
+          <Property Name="bkSummary" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="bkAmount" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbLibrary.dbo.viewUpgradedBorrowed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewUpgradedBorrowed">
+          <Key>
+            <PropertyRef Name="brwID" />
+            <PropertyRef Name="usrID" />
+            <PropertyRef Name="usrFullName" />
+            <PropertyRef Name="bkID" />
+            <PropertyRef Name="bkName" />
+            <PropertyRef Name="brwPurchaseDate" />
+            <PropertyRef Name="brwRedemptionDate" />
+          </Key>
+          <Property Name="brwID" Type="int" Nullable="false" />
+          <Property Name="usrID" Type="int" Nullable="false" />
+          <Property Name="usrFullName" Type="varchar" MaxLength="34" Nullable="false" />
+          <Property Name="bkID" Type="int" Nullable="false" />
+          <Property Name="bkName" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="brwPurchaseDate" Type="date" Nullable="false" />
+          <Property Name="brwRedemptionDate" Type="date" Nullable="false" />
+          <Property Name="brwSitutation" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbLibrary.dbo.viewUpgradedUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewUpgradedUsers">
+          <Key>
+            <PropertyRef Name="usrID" />
+            
+            
+            <PropertyRef Name="usrSchoolNumber" />
+            
+            
+          </Key>
+          <Property Name="usrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usrFullName" Type="varchar" MaxLength="34" Nullable="false" />
+          <Property Name="usrMail" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="usrSchoolNumber" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="usrPassword" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="usrAuthorityLevel" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblBooks_tblCategories">
+          <End Role="tblCategories" Type="Self.tblCategories" Multiplicity="1" />
+          <End Role="tblBooks" Type="Self.tblBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="ctgID" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="bkCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBorrowed_tblBooks">
+          <End Role="tblBooks" Type="Self.tblBooks" Multiplicity="0..1" />
+          <End Role="tblBorrowed" Type="Self.tblBorrowed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBooks">
+              <PropertyRef Name="bkID" />
+            </Principal>
+            <Dependent Role="tblBorrowed">
+              <PropertyRef Name="brwBkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBorrowed_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblBorrowed" Type="Self.tblBorrowed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="usrID" />
+            </Principal>
+            <Dependent Role="tblBorrowed">
+              <PropertyRef Name="brwUsrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="giveBackBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="makeTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+          <Parameter Name="strInput" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="dbLibraryModelStoreContainer">
+          <EntitySet Name="tblBooks" EntityType="Self.tblBooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBorrowed" EntityType="Self.tblBorrowed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSettings" EntityType="Self.tblSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="viewUpgradedBooks" EntityType="Self.viewUpgradedBooks" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewUpgradedBooks].[bkID] AS [bkID], 
+    [viewUpgradedBooks].[bkName] AS [bkName], 
+    [viewUpgradedBooks].[bkAuthor] AS [bkAuthor], 
+    [viewUpgradedBooks].[bkPages] AS [bkPages], 
+    [viewUpgradedBooks].[bkPublishedDate] AS [bkPublishedDate], 
+    [viewUpgradedBooks].[ctgName] AS [ctgName], 
+    [viewUpgradedBooks].[bkSummary] AS [bkSummary], 
+    [viewUpgradedBooks].[bkAmount] AS [bkAmount]
+    FROM [dbo].[viewUpgradedBooks] AS [viewUpgradedBooks]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewUpgradedBorrowed" EntityType="Self.viewUpgradedBorrowed" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewUpgradedBorrowed].[brwID] AS [brwID], 
+    [viewUpgradedBorrowed].[usrID] AS [usrID], 
+    [viewUpgradedBorrowed].[usrFullName] AS [usrFullName], 
+    [viewUpgradedBorrowed].[bkID] AS [bkID], 
+    [viewUpgradedBorrowed].[bkName] AS [bkName], 
+    [viewUpgradedBorrowed].[brwPurchaseDate] AS [brwPurchaseDate], 
+    [viewUpgradedBorrowed].[brwRedemptionDate] AS [brwRedemptionDate], 
+    [viewUpgradedBorrowed].[brwSitutation] AS [brwSitutation]
+    FROM [dbo].[viewUpgradedBorrowed] AS [viewUpgradedBorrowed]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewUpgradedUsers" EntityType="Self.viewUpgradedUsers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewUpgradedUsers].[usrID] AS [usrID], 
+    [viewUpgradedUsers].[usrFullName] AS [usrFullName], 
+    [viewUpgradedUsers].[usrMail] AS [usrMail], 
+    [viewUpgradedUsers].[usrSchoolNumber] AS [usrSchoolNumber], 
+    [viewUpgradedUsers].[usrPassword] AS [usrPassword], 
+    [viewUpgradedUsers].[usrAuthorityLevel] AS [usrAuthorityLevel]
+    FROM [dbo].[viewUpgradedUsers] AS [viewUpgradedUsers]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblBooks_tblCategories" Association="Self.FK_tblBooks_tblCategories">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBorrowed_tblBooks" Association="Self.FK_tblBorrowed_tblBooks">
+            <End Role="tblBooks" EntitySet="tblBooks" />
+            <End Role="tblBorrowed" EntitySet="tblBorrowed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBorrowed_tblUsers" Association="Self.FK_tblBorrowed_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblBorrowed" EntitySet="tblBorrowed" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBook">
+          <Key>
+            <PropertyRef Name="bkID" />
+          </Key>
+          <Property Name="bkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bkName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bkAuthor" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bkPublishedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="bkPages" Type="Int32" Nullable="false" />
+          <Property Name="bkAmount" Type="Byte" Nullable="false" />
+          <Property Name="bkSummary" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bkCategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblBooks_tblCategories" FromRole="tblBooks" ToRole="tblCategories" />
+          <NavigationProperty Name="tblBorroweds" Relationship="Self.FK_tblBorrowed_tblBooks" FromRole="tblBooks" ToRole="tblBorrowed" />
+        </EntityType>
+        <EntityType Name="tblBorrowed">
+          <Key>
+            <PropertyRef Name="brwID" />
+          </Key>
+          <Property Name="brwID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brwBkID" Type="Int32" />
+          <Property Name="brwUsrID" Type="Int32" />
+          <Property Name="brwPurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="brwSitutation" Type="Boolean" />
+          <NavigationProperty Name="tblBook" Relationship="Self.FK_tblBorrowed_tblBooks" FromRole="tblBorrowed" ToRole="tblBooks" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblBorrowed_tblUsers" FromRole="tblBorrowed" ToRole="tblUsers" />
+          <Property Name="brwRedemptionDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="ctgID" />
+          </Key>
+          <Property Name="ctgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ctgName" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ctgCreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tblBooks" Relationship="Self.FK_tblBooks_tblCategories" FromRole="tblCategories" ToRole="tblBooks" />
+        </EntityType>
+        <EntityType Name="tblSetting">
+          <Key>
+            <PropertyRef Name="stgID" />
+          </Key>
+          <Property Name="stgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stgProperty" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stgValue" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="usrID" />
+          </Key>
+          <Property Name="usrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usrName" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrSurname" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrSchoolNumber" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrMail" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrPassword" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrAuthorityLevel" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usrAccountActivation" Type="Boolean" Nullable="false" />
+          <Property Name="usrLecturerActivation" Type="Boolean" />
+          <Property Name="usrAmontBooks" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tblBorroweds" Relationship="Self.FK_tblBorrowed_tblUsers" FromRole="tblUsers" ToRole="tblBorrowed" />
+        </EntityType>
+        <Association Name="FK_tblBooks_tblCategories">
+          <End Role="tblCategories" Type="Self.tblCategory" Multiplicity="1" />
+          <End Role="tblBooks" Type="Self.tblBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="ctgID" />
+            </Principal>
+            <Dependent Role="tblBooks">
+              <PropertyRef Name="bkCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBorrowed_tblBooks">
+          <End Role="tblBooks" Type="Self.tblBook" Multiplicity="0..1" />
+          <End Role="tblBorrowed" Type="Self.tblBorrowed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBooks">
+              <PropertyRef Name="bkID" />
+            </Principal>
+            <Dependent Role="tblBorrowed">
+              <PropertyRef Name="brwBkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBorrowed_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblBorrowed" Type="Self.tblBorrowed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="usrID" />
+            </Principal>
+            <Dependent Role="tblBorrowed">
+              <PropertyRef Name="brwUsrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBooks" EntityType="Self.tblBook" />
+          <EntitySet Name="tblBorroweds" EntityType="Self.tblBorrowed" />
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblSettings" EntityType="Self.tblSetting" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblBooks_tblCategories" Association="Self.FK_tblBooks_tblCategories">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblBooks" EntitySet="tblBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBorrowed_tblBooks" Association="Self.FK_tblBorrowed_tblBooks">
+            <End Role="tblBooks" EntitySet="tblBooks" />
+            <End Role="tblBorrowed" EntitySet="tblBorroweds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBorrowed_tblUsers" Association="Self.FK_tblBorrowed_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblBorrowed" EntitySet="tblBorroweds" />
+          </AssociationSet>
+          <EntitySet Name="viewUpgradedBooks" EntityType="dbLibraryModel.viewUpgradedBook" />
+          <EntitySet Name="viewUpgradedUsers" EntityType="dbLibraryModel.viewUpgradedUser" />
+          <FunctionImport Name="giveBackBook">
+          <Parameter Name="pid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="viewUpgradedBorroweds" EntityType="dbLibraryModel.viewUpgradedBorrowed" />
+        </EntityContainer>
+        <EntityType Name="viewUpgradedBook">
+          <Key>
+            <PropertyRef Name="bkID" />
+          </Key>
+          <Property Name="bkID" Type="Int32" Nullable="false" />
+          <Property Name="bkName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bkAuthor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bkPages" Type="Int32" Nullable="false" />
+          <Property Name="bkPublishedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ctgName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bkSummary" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="bkAmount" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="viewUpgradedUser">
+          <Key>
+            <PropertyRef Name="usrID" />
+            <PropertyRef Name="usrSchoolNumber" />
+          </Key>
+          <Property Name="usrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usrFullName" Type="String" Nullable="false" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="usrMail" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="usrAuthorityLevel" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="usrPassword" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="usrSchoolNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="viewUpgradedBorrowed">
+          <Key>
+            <PropertyRef Name="brwID" />
+            <PropertyRef Name="usrID" />
+            <PropertyRef Name="usrFullName" />
+            <PropertyRef Name="bkID" />
+            <PropertyRef Name="bkName" />
+            <PropertyRef Name="brwPurchaseDate" />
+            <PropertyRef Name="brwRedemptionDate" />
+          </Key>
+          <Property Name="brwID" Type="Int32" Nullable="false" />
+          <Property Name="usrID" Type="Int32" Nullable="false" />
+          <Property Name="usrFullName" Type="String" Nullable="false" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="bkID" Type="Int32" Nullable="false" />
+          <Property Name="bkName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="brwSitutation" Type="Boolean" />
+          <Property Name="brwPurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="brwRedemptionDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbLibraryModelStoreContainer" CdmEntityContainer="dbLibraryEntities">
+          <EntitySetMapping Name="tblBooks">
+            <EntityTypeMapping TypeName="dbLibraryModel.tblBook">
+              <MappingFragment StoreEntitySet="tblBooks">
+                <ScalarProperty Name="bkID" ColumnName="bkID" />
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+                <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+                <ScalarProperty Name="bkPublishedDate" ColumnName="bkPublishedDate" />
+                <ScalarProperty Name="bkPages" ColumnName="bkPages" />
+                <ScalarProperty Name="bkAmount" ColumnName="bkAmount" />
+                <ScalarProperty Name="bkSummary" ColumnName="bkSummary" />
+                <ScalarProperty Name="bkCategoryID" ColumnName="bkCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBorroweds">
+            <EntityTypeMapping TypeName="dbLibraryModel.tblBorrowed">
+              <MappingFragment StoreEntitySet="tblBorrowed">
+                <ScalarProperty Name="brwRedemptionDate" ColumnName="brwRedemptionDate" />
+                <ScalarProperty Name="brwID" ColumnName="brwID" />
+                <ScalarProperty Name="brwBkID" ColumnName="brwBkID" />
+                <ScalarProperty Name="brwUsrID" ColumnName="brwUsrID" />
+                <ScalarProperty Name="brwPurchaseDate" ColumnName="brwPurchaseDate" />
+                <ScalarProperty Name="brwSitutation" ColumnName="brwSitutation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="dbLibraryModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategories">
+                <ScalarProperty Name="ctgID" ColumnName="ctgID" />
+                <ScalarProperty Name="ctgName" ColumnName="ctgName" />
+                <ScalarProperty Name="ctgCreatedDate" ColumnName="ctgCreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSettings">
+            <EntityTypeMapping TypeName="dbLibraryModel.tblSetting">
+              <MappingFragment StoreEntitySet="tblSettings">
+                <ScalarProperty Name="stgID" ColumnName="stgID" />
+                <ScalarProperty Name="stgProperty" ColumnName="stgProperty" />
+                <ScalarProperty Name="stgValue" ColumnName="stgValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="dbLibraryModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="usrID" ColumnName="usrID" />
+                <ScalarProperty Name="usrName" ColumnName="usrName" />
+                <ScalarProperty Name="usrSurname" ColumnName="usrSurname" />
+                <ScalarProperty Name="usrSchoolNumber" ColumnName="usrSchoolNumber" />
+                <ScalarProperty Name="usrMail" ColumnName="usrMail" />
+                <ScalarProperty Name="usrPassword" ColumnName="usrPassword" />
+                <ScalarProperty Name="usrAuthorityLevel" ColumnName="usrAuthorityLevel" />
+                <ScalarProperty Name="usrAccountActivation" ColumnName="usrAccountActivation" />
+                <ScalarProperty Name="usrLecturerActivation" ColumnName="usrLecturerActivation" />
+                <ScalarProperty Name="usrAmontBooks" ColumnName="usrAmontBooks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewUpgradedBooks">
+            <EntityTypeMapping TypeName="dbLibraryModel.viewUpgradedBook">
+              <MappingFragment StoreEntitySet="viewUpgradedBooks">
+                <ScalarProperty Name="bkAmount" ColumnName="bkAmount" />
+                <ScalarProperty Name="bkSummary" ColumnName="bkSummary" />
+                <ScalarProperty Name="ctgName" ColumnName="ctgName" />
+                <ScalarProperty Name="bkPublishedDate" ColumnName="bkPublishedDate" />
+                <ScalarProperty Name="bkPages" ColumnName="bkPages" />
+                <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+                <ScalarProperty Name="bkID" ColumnName="bkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewUpgradedUsers">
+            <EntityTypeMapping TypeName="dbLibraryModel.viewUpgradedUser">
+              <MappingFragment StoreEntitySet="viewUpgradedUsers">
+                <ScalarProperty Name="usrSchoolNumber" ColumnName="usrSchoolNumber" />
+                <ScalarProperty Name="usrPassword" ColumnName="usrPassword" />
+                <ScalarProperty Name="usrAuthorityLevel" ColumnName="usrAuthorityLevel" />
+                <ScalarProperty Name="usrMail" ColumnName="usrMail" />
+                <ScalarProperty Name="usrFullName" ColumnName="usrFullName" />
+                <ScalarProperty Name="usrID" ColumnName="usrID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="giveBackBook" FunctionName="dbLibraryModel.Store.giveBackBook" />
+          <EntitySetMapping Name="viewUpgradedBorroweds">
+            <EntityTypeMapping TypeName="dbLibraryModel.viewUpgradedBorrowed">
+              <MappingFragment StoreEntitySet="viewUpgradedBorrowed">
+                <ScalarProperty Name="brwRedemptionDate" ColumnName="brwRedemptionDate" />
+                <ScalarProperty Name="brwPurchaseDate" ColumnName="brwPurchaseDate" />
+                <ScalarProperty Name="brwSitutation" ColumnName="brwSitutation" />
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+                <ScalarProperty Name="bkID" ColumnName="bkID" />
+                <ScalarProperty Name="usrFullName" ColumnName="usrFullName" />
+                <ScalarProperty Name="usrID" ColumnName="usrID" />
+                <ScalarProperty Name="brwID" ColumnName="brwID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
